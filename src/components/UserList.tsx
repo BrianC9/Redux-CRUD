@@ -11,10 +11,11 @@ import {
 	Text,
 	Title,
 } from "@tremor/react";
-import { useAppSelector } from "../hooks";
-
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { deleteUser } from "../store/users/slice";
 export default function Example() {
 	const users = useAppSelector((state) => state.users);
+	const dispatch = useAppDispatch();
 	return (
 		<Card>
 			<Flex justifyContent="start" className="space-x-2">
@@ -52,7 +53,10 @@ export default function Example() {
 							<TableCell>{user.github}</TableCell>
 
 							<TableCell>
-								<button type="button">
+								<button
+									type="button"
+									onClick={() => dispatch(deleteUser(user.id))}
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
