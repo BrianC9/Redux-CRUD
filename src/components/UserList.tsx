@@ -11,10 +11,10 @@ import {
 	Text,
 	Title,
 } from "@tremor/react";
-import { useAppSelector } from "../hooks";
 import { useUserActions } from "../hooks/useUserActions";
+import { useUsers } from "../hooks/useUsers";
 export default function Example() {
-	const users = useAppSelector((state) => state.users);
+	const { users } = useUsers();
 	const { removeUserById, updatePremiunById } = useUserActions();
 	return (
 		<Card>
