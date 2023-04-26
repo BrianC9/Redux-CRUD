@@ -87,11 +87,22 @@ export const usersSlice = createSlice({
 	name: "users",
 	initialState: initialStateUsers,
 	reducers: {
-		deleteUser: (state, action: PayloadAction<UserId>) => {
+		deleteUserById: (prevState, action: PayloadAction<UserId>) => {
 			const id = action.payload;
-			return state.filter((user) => user.id !== id);
+			return prevState.filter((user) => user.id !== id);
+		},
+		changePremiunById: (prevState, action: PayloadAction<UserId>) => {
+			const id = action.payload;
+			const newState = prevState.map((user) => {
+				if (user.id === id) {
+					const actualPremiun = user.premium;
+					return { ...user, premium: !actualPremiun };
+				}
+				return user;
+			});
+			return newState;
 		},
 	},
 });
-export const { deleteUser } = usersSlice.actions;
+export const { deleteUserById, changePremiunById } = usersSlice.actions;
 export default usersSlice.reducer;

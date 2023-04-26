@@ -1,4 +1,5 @@
 import "./App.css";
+import CategoryDashboard from "./components/CategoryDashboard";
 import UserList from "./components/UserList";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
 		<>
 			<h1>Redux CRUD</h1>
 			<UserList />
+			<CategoryDashboard />
 		</>
 	);
 }
