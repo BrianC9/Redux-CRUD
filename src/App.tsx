@@ -1,5 +1,6 @@
 import "./App.css";
 import CategoryDashboard from "./components/CategoryDashboard";
+import CreateNewUser from "./components/CreateNewUser";
 import UserList from "./components/UserList";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
 			</h1>
 			<main className="flex-col justify-center align-middle items-center">
 				<UserList />
+				<CreateNewUser />
 				<CategoryDashboard />
 			</main>
 		</>

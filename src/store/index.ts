@@ -3,13 +3,8 @@ import usersReducer from "./users/slice";
 
 const persistanceLocalStorageMiddleware: Middleware =
 	(store) => (next) => (action) => {
-		console.log("____Start of middleware persistanceLocalStorageMiddleware_________");
-		console.log("state ANTES de la acción: ",store.getState());
-		console.log("action que hemos enviado:",action);
 		next(action);
-		console.log("state DESPUÉS de procesar la acción", store.getState());
-		console.log("------End of middleware persistanceLocalStorageMiddleware-----");
-
+		localStorage.setItem("__redux__state__", JSON.stringify(store.getState()));
 	};
 
 export const store = configureStore({

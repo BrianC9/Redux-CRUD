@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-const initialStateUsers: UserWithId[] = [
+const DEFAULT_USERS_STATE: UserWithId[] = [
 	{
 		id: 1,
 		name: "Danielle",
@@ -72,6 +72,13 @@ const initialStateUsers: UserWithId[] = [
 		premium: true,
 	},
 ];
+const initialStateUsers: UserWithId[] = (() => {
+	const usersListFromLS = localStorage.getItem("__redux__state__");
+	console.log(usersListFromLS);
+	if (usersListFromLS) {
+		return JSON.parse(usersListFromLS).users;
+	} else return DEFAULT_USERS_STATE;
+})();
 export interface User {
 	name: string;
 	github: string;
