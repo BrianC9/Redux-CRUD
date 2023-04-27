@@ -88,12 +88,17 @@ export interface User {
 export type UserId = number;
 
 export interface UserWithId extends User {
-	id: UserId;
+	id: UserId | string;
 }
 export const usersSlice = createSlice({
 	name: "users",
 	initialState: initialStateUsers,
 	reducers: {
+		addNewUser: (prevState, action: PayloadAction<User>) => {
+			const id = crypto.randomUUID().split("-")[0];
+			const newUser: User = action.payload;
+			return [...prevState, { id, ...newUser }];
+		},
 		deleteUserById: (prevState, action: PayloadAction<UserId>) => {
 			const id = action.payload;
 			return prevState.filter((user) => user.id !== id);
@@ -111,5 +116,6 @@ export const usersSlice = createSlice({
 		},
 	},
 });
-export const { deleteUserById, changePremiunById } = usersSlice.actions;
+export const { deleteUserById, changePremiunById, addNewUser } =
+	usersSlice.actions;
 export default usersSlice.reducer;

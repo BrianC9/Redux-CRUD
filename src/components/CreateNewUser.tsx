@@ -7,23 +7,67 @@ import {
 	TextInput,
 	Title,
 } from "@tremor/react";
+import { useState } from "react";
+import { useUserActions } from "../hooks/useUserActions";
+
 function CreateNewUser() {
+	const [premium, setPremium] = useState("normal");
+	const { addUser } = useUserActions();
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const form = event.currentTarget;
+		const formData = new FormData(form);
+
+		const name = formData.get("name") as string;
+		const email = formData.get("email") as string;
+		const github = formData.get("github") as string;
+
+		console.log({
+			name,
+			email,
+			github,
+			premium,
+		});
+		addUser({
+			name,
+			email,
+			github,
+			premium: premium === "premium" ? true : false,
+		});
+	};
 	return (
-		<Card className="px-36 mt-16" decoration="top">
+		<Card className="max-w-2xl mt-16 mx-auto" decoration="top">
 			<Title>Create a new user</Title>
-			<form action="#">
-				<Flex flexDirection="col" className="gap-6">
-					<TextInput placeholder="Name" icon={UserIcon} />
-					<TextInput placeholder="Email@email.com" icon={EmailIcon} />
-					<TextInput placeholder="Github username" icon={TagIcon} />
+			<form onSubmit={(e) => handleSubmit(e)}>
+				<Flex flexDirection="col" className="gap-4 ">
+					<TextInput
+						name="name"
+						required
+						className="pl-4"
+						placeholder="Name"
+						icon={UserIcon}
+					/>
+					<TextInput
+						name="email"
+						required
+						placeholder="Email@email.com"
+						icon={EmailIcon}
+					/>
+					<TextInput
+						name="github"
+						required
+						placeholder="Github username"
+						icon={TagIcon}
+					/>
 
 					<SelectBox
+						value={premium}
 						placeholder="Chose a category"
-						defaultValue="Premiun"
 						icon={DolarIcon}
+						onValueChange={setPremium}
 					>
-						<SelectBoxItem value="Premium" className="px-4" />
-						<SelectBoxItem value="Normal" className="px-4" />
+						<SelectBoxItem value="premium" text='Premium' className="px-4" />
+						<SelectBoxItem value="Normal" text='Normal' className="px-4" />
 					</SelectBox>
 					<Button variant="primary">Submit user</Button>
 				</Flex>
