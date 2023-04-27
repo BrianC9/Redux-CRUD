@@ -56,7 +56,7 @@ export default function Example() {
 								<button
 									className="hover:bg-red"
 									type="button"
-									onClick={() => removeUserById(user.id)}
+									onClick={() => removeUserById(Number(user.id))}
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ export default function Example() {
 								</button>
 								<button
 									type="button"
-									onClick={() => updatePremiunById(user.id)}
+									onClick={() => updatePremiunById(Number(user.id))}
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

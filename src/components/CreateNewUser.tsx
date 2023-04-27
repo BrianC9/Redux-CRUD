@@ -32,7 +32,7 @@ function CreateNewUser() {
 	};
 	return (
 		<Card className="max-w-2xl mt-16 mx-auto" decoration="top">
-			<Title>Create a new user</Title>
+			<Title className="my-4">Create a new user</Title>
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<Flex flexDirection="col" className="gap-4 ">
 					<TextInput
