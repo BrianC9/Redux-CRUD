@@ -1,7 +1,6 @@
 import { Middleware, configureStore } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import usersReducer, { User, UserWithId, rollbackUser } from "./users/slice";
-
 const persistanceLocalStorageMiddleware: Middleware =
 	(store) => (next) => (action) => {
 		next(action);
@@ -20,9 +19,9 @@ const validateNewUserInfoMiddleware: Middleware =
 				toast.error("Email already taken");
 			} else {
 				toast.success("User created successfully");
-				next(action);
 			}
 		}
+		next(action);
 	};
 
 const syncWithDatabaseMiddleware: Middleware =
@@ -49,7 +48,12 @@ const syncWithDatabaseMiddleware: Middleware =
 			})
 				.then((res) => {
 					if (res.ok) {
-						toast.success(`User ${id} deleted successfully from  the DB`);
+						toast(`User ${id} deleted successfully from  the DB`, {
+							action: {
+								label: "Rollback",
+								onClick: () => store.dispatch(rollbackUser(userToRemove)),
+							},
+						});
 					}
 				})
 				.catch(() => {
